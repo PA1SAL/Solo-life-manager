@@ -1,0 +1,142 @@
+import datetime
+
+class HousingManagement:
+    def __init__(self):
+        self.rent_due_date = None
+        self.utility_due_date = None
+    
+    def set_rent_due_date(self, due_date):
+        self.rent_due_date = due_date
+        print(f"Rent due date set to: {self.rent_due_date.strftime('%d.%m.%Y')}")
+
+    def set_utility_due_date(self, due_date):
+        self.utility_due_date = due_date
+        print(f"Utility due date set to: {self.utility_due_date.strftime('%d.%m.%Y')}")
+
+class ExpenseTracker:
+    def __init__(self):
+        self.expenses = []
+
+    def add_expense(self, expense):
+        self.expenses.append(expense)
+        print(f"Expense added: {expense['description']} (₹{expense['amount']:.2f} on {expense['date'].strftime('%d.%m.%Y')})")
+
+class Reminder:
+    def __init__(self):
+        self.reminders = []
+
+    def add_reminder(self, reminder):
+        self.reminders.append(reminder)
+        print(f"Reminder added: {reminder['description']} (due on {reminder['date'].strftime('%d.%m.%Y')})")
+
+class EmergencyContacts:
+    def __init__(self):
+        self.contacts = []
+
+    def add_contact(self, contact):
+        self.contacts.append(contact)
+        print(f"Emergency contact added: {contact['name']} ({contact['phone']})")
+
+class GroceryList:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+        print(f"Item added to grocery list: {item}")
+
+    def print_list(self):
+        print("Grocery list items:")
+        for item in self.items:
+            print(f"- {item}")
+
+class DietRecommendation:
+    def get_recommendation(self):
+        print("Generating personalized diet recommendation...")
+        # Logic to generate personalized diet recommendation
+        pass
+
+class RecipeRecommendation:
+    def get_recommendation(self):
+        print("Generating personalized recipe recommendation...")
+        # Logic to generate personalized recipe recommendation
+        pass
+
+# Main function to interact with the user
+def main():
+    print("Welcome to Solo Life Management App!\n")
+
+    # Initialize modules
+    housing_management = HousingManagement()
+    expense_tracker = ExpenseTracker()
+    reminder = Reminder()
+    emergency_contacts = EmergencyContacts()
+    grocery_list = GroceryList()
+    diet_recommendation = DietRecommendation()
+    recipe_recommendation = RecipeRecommendation()
+
+    # Set rent due date
+    while True:
+        try:
+            rent_due_date_input = input("Enter rent due date (DD.MM.YYYY): ")
+            rent_due_date = datetime.datetime.strptime(rent_due_date_input, '%d.%m.%Y').date()
+            housing_management.set_rent_due_date(rent_due_date)
+            break
+        except ValueError:
+            print("Invalid date format. Please enter date in DD.MM.YYYY format.")
+
+    # Set utility due date
+    while True:
+        try:
+            utility_due_date_input = input("Enter utility due date (DD.MM.YYYY): ")
+            utility_due_date = datetime.datetime.strptime(utility_due_date_input, '%d.%m.%Y').date()
+            housing_management.set_utility_due_date(utility_due_date)
+            break
+        except ValueError:
+            print("Invalid date format. Please enter date in DD.MM.YYYY format.")
+
+    # Add expense
+    try:
+        expense_amount = float(input("Enter expense amount (in ₹): "))
+        expense_description = input("Enter expense description: ")
+        expense_date_input = input("Enter expense date (DD.MM.YYYY): ")
+        expense_date = datetime.datetime.strptime(expense_date_input, '%d.%m.%Y').date()
+        expense_tracker.add_expense({'date': expense_date, 'amount': expense_amount, 'description': expense_description})
+    except ValueError:
+        print("Invalid input. Please enter a valid expense amount.")
+
+    # Add reminder
+    reminder_description = input("Enter reminder description: ")
+    while True:
+        try:
+            reminder_date_input = input("Enter reminder date (DD.MM.YYYY): ")
+            reminder_date = datetime.datetime.strptime(reminder_date_input, '%d.%m.%Y').date()
+            reminder.add_reminder({'date': reminder_date, 'description': reminder_description})
+            break
+        except ValueError:
+            print("Invalid date format. Please enter date in DD.MM.YYYY format.")
+
+    # Add emergency contact
+    contact_name = input("Enter contact name: ")
+    contact_phone = input("Enter contact phone number: ")
+    emergency_contacts.add_contact({'name': contact_name, 'phone': contact_phone})
+
+    # Add items to grocery list
+    print("Enter items to add to grocery list (type 'done' to finish):")
+    while True:
+        item = input("Item: ")
+        if item.lower() == 'done':
+            break
+        grocery_list.add_item(item)
+
+    # Print grocery list
+    grocery_list.print_list()
+
+    # Get personalized diet recommendation
+    diet_recommendation.get_recommendation()
+
+    # Get personalized recipe recommendation
+    recipe_recommendation.get_recommendation()
+
+if __name__ == "__main__":
+    main()
